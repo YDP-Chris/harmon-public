@@ -1,9 +1,17 @@
 import Section from "@/components/Section";
 import Link from "next/link";
+import { publicDb } from "@/lib/supabase";
 
 export const revalidate = 3600;
 
-export default function Home() {
+export default async function Home() {
+  const currentYear = new Date().getFullYear();
+  const { data: officers } = await publicDb()
+    .from("officers")
+    .select("title, name_override, sort_order")
+    .eq("masonic_year", currentYear)
+    .order("sort_order");
+
   return (
     <>
       {/* Hero */}
@@ -99,24 +107,18 @@ export default function Home() {
 
       {/* Officers */}
       <Section id="officers" title="Officers">
-        <p className="text-cream-300 text-sm mb-6">2026 Masonic Year</p>
+        <p className="text-cream-300 text-sm mb-6">{currentYear} Masonic Year</p>
         <div className="space-y-3 text-cream-200">
-          {[
-            ["Worshipful Master", "Matthew Douglas"],
-            ["Senior Warden", "Chris Ford"],
-            ["Junior Warden", "Shannon McClamrock"],
-            ["Treasurer", "Roy Douglas"],
-            ["Secretary", "Chris Ford"],
-            ["Senior Deacon", "Michael Payne"],
-            ["Junior Deacon", "Derwin Woodard"],
-            ["Chaplain", "Robert Whitaker"],
-            ["Tyler", "Steve Church"],
-          ].map(([title, name]) => (
-            <div key={title} className="flex justify-between border-b border-navy-700 pb-2">
-              <span className="text-cream-300">{title}</span>
-              <span>{name}</span>
-            </div>
-          ))}
+          {officers && officers.length > 0 ? (
+            officers.map((o) => (
+              <div key={o.title} className="flex justify-between border-b border-navy-700 pb-2">
+                <span className="text-cream-300">{o.title}</span>
+                <span>{o.name_override || "—"}</span>
+              </div>
+            ))
+          ) : (
+            <p className="text-cream-300">Officer information will be posted shortly.</p>
+          )}
         </div>
       </Section>
 

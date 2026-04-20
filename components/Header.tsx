@@ -17,7 +17,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-navy-800 border-b border-navy-700">
+    <header className="bg-navy-800 border-b border-navy-700 sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-gold-400 font-serif text-lg">
           Harmon Lodge No. 420
