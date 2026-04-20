@@ -1,5 +1,6 @@
 import { publicDb } from "@/lib/supabase";
 import { formatEventDate, formatTime } from "@/lib/dates";
+import { googleCalendarUrl } from "@/lib/calendar-link";
 import Section from "@/components/Section";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -35,34 +36,53 @@ export default async function CalendarPage() {
       {events && events.length > 0 ? (
         <div className="space-y-6">
           {events.map((event) => (
-            <Link
+            <div
               key={event.event_id}
-              href={`/calendar/${event.event_id}`}
-              className="block border border-navy-700 rounded-lg p-5 bg-navy-800 hover:border-navy-600 transition-colors"
+              className="border border-navy-700 rounded-lg p-5 bg-navy-800"
             >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                <div>
-                  <h3 className="text-cream-100 text-lg font-serif">
-                    {event.title}
-                  </h3>
-                  <p className="text-cream-300 text-sm mt-1">
-                    {formatEventDate(event.event_date)}
-                  </p>
+              <Link
+                href={`/calendar/${event.event_id}`}
+                className="block hover:opacity-90 transition-opacity"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 className="text-cream-100 text-lg font-serif">
+                      {event.title}
+                    </h3>
+                    <p className="text-cream-300 text-sm mt-1">
+                      {formatEventDate(event.event_date)}
+                    </p>
+                  </div>
+                  <span className="text-gold-400 text-xs uppercase tracking-wider whitespace-nowrap">
+                    {TYPE_LABELS[event.event_type] || event.event_type}
+                  </span>
                 </div>
-                <span className="text-gold-400 text-xs uppercase tracking-wider whitespace-nowrap">
-                  {TYPE_LABELS[event.event_type] || event.event_type}
-                </span>
+                <div className="mt-3 text-cream-300 text-sm space-y-1">
+                  {event.dinner_time && (
+                    <p>Dinner: {formatTime(event.dinner_time)}</p>
+                  )}
+                  {event.start_time && (
+                    <p>Lodge opens: {formatTime(event.start_time)}</p>
+                  )}
+                  {event.location && <p>{event.location}</p>}
+                </div>
+              </Link>
+              <div className="mt-3 pt-3 border-t border-navy-700">
+                <a
+                  href={googleCalendarUrl(
+                    event.title,
+                    event.event_date,
+                    event.dinner_time || event.start_time,
+                    event.location
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold-400 hover:text-gold-300 text-xs transition-colors"
+                >
+                  Add to Google Calendar &rarr;
+                </a>
               </div>
-              <div className="mt-3 text-cream-300 text-sm space-y-1">
-                {event.dinner_time && (
-                  <p>Dinner: {formatTime(event.dinner_time)}</p>
-                )}
-                {event.start_time && (
-                  <p>Lodge opens: {formatTime(event.start_time)}</p>
-                )}
-                {event.location && <p>{event.location}</p>}
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
       ) : (

@@ -1,5 +1,6 @@
 import { publicDb } from "@/lib/supabase";
 import { formatEventDate, formatTime } from "@/lib/dates";
+import { googleCalendarUrl } from "@/lib/calendar-link";
 import Section from "@/components/Section";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -130,11 +131,24 @@ export default async function EventDetailPage({
           </div>
         )}
 
-        {/* Back link */}
-        <div className="pt-4">
+        {/* Actions */}
+        <div className="pt-4 flex flex-col sm:flex-row gap-4">
+          <a
+            href={googleCalendarUrl(
+              event.title,
+              event.event_date,
+              event.dinner_time || event.start_time,
+              event.location
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-navy-900 px-4 py-2 rounded text-sm transition-colors text-center"
+          >
+            Add to Google Calendar
+          </a>
           <Link
             href="/calendar"
-            className="text-gold-400 hover:text-gold-300 transition-colors text-sm"
+            className="text-gold-400 hover:text-gold-300 transition-colors text-sm py-2"
           >
             &larr; Back to calendar
           </Link>
