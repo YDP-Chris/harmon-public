@@ -19,20 +19,16 @@ export function formatShortDate(isoDate: string): string {
 
 export function formatTime(time: string | null): string | null {
   if (!time) return null;
-  // Times from the DB are like "7:30 PM" or "18:30" — normalize to 12hr with EST
-  // If already in 12hr format, just append EST
-  if (time.includes("AM") || time.includes("PM")) {
+  try {
+    const d = new Date(time);
+    if (isNaN(d.getTime())) return `${time} EST`;
+    return d.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "America/New_York",
+      timeZoneName: "short",
+    });
+  } catch {
     return `${time} EST`;
   }
-  // Try to parse 24hr format
-  const parts = time.split(":");
-  if (parts.length >= 2) {
-    let h = parseInt(parts[0], 10);
-    const m = parts[1].padStart(2, "0");
-    const ampm = h >= 12 ? "PM" : "AM";
-    if (h > 12) h -= 12;
-    if (h === 0) h = 12;
-    return `${h}:${m} ${ampm} EST`;
-  }
-  return `${time} EST`;
 }
