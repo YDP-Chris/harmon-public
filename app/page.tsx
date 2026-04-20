@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { publicDb } from "@/lib/supabase";
 import { formatEventDate, formatTime } from "@/lib/dates";
+import ContactForm from "@/components/ContactForm";
 
 export const revalidate = 3600;
 
@@ -254,8 +255,13 @@ export default async function Home() {
             </p>
           </div>
           <p className="text-cream-300 text-sm">
-            For general inquiries, contact the Secretary by phone or email.
+            For general inquiries, contact the Secretary by phone, email, or
+            use the form below.
           </p>
+        </div>
+        <div className="mt-8">
+          <h3 className="text-lg text-cream-100 font-serif mb-4">Send a Message</h3>
+          <ContactForm />
         </div>
       </Section>
     </>
