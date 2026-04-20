@@ -13,6 +13,22 @@ const NAV_LINKS = [
   { href: "/#contact", label: "Contact" },
 ];
 
+function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
+  // Use regular <a> for hash links to ensure proper cross-page navigation
+  if (href.includes("#")) {
+    return (
+      <a href={href} onClick={onClick} className="text-cream-200 hover:text-gold-300 text-sm transition-colors">
+        {label}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} onClick={onClick} className="text-cream-200 hover:text-gold-300 text-sm transition-colors">
+      {label}
+    </Link>
+  );
+}
+
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -25,13 +41,7 @@ export default function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-6">
           {NAV_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-cream-200 hover:text-gold-300 text-sm transition-colors"
-            >
-              {l.label}
-            </Link>
+            <NavLink key={l.href} href={l.href} label={l.label} />
           ))}
         </nav>
         {/* Mobile hamburger */}
@@ -53,14 +63,7 @@ export default function Header() {
       {open && (
         <nav className="md:hidden border-t border-navy-700 px-4 py-3 flex flex-col gap-3">
           {NAV_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-cream-200 hover:text-gold-300 text-sm"
-            >
-              {l.label}
-            </Link>
+            <NavLink key={l.href} href={l.href} label={l.label} onClick={() => setOpen(false)} />
           ))}
         </nav>
       )}
