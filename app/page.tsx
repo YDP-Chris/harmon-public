@@ -1,5 +1,6 @@
 import Section from "@/components/Section";
 import Link from "next/link";
+import Image from "next/image";
 import { publicDb } from "@/lib/supabase";
 
 export const revalidate = 3600;
@@ -17,9 +18,14 @@ export default async function Home() {
       {/* Hero */}
       <div className="py-24 md:py-32 px-4 text-center border-b border-navy-700">
         <div className="max-w-2xl mx-auto">
-          <div className="text-gold-400 text-6xl mb-6" aria-hidden="true">
-            &#9651;
-          </div>
+          <Image
+            src="/lodge-logo.png"
+            alt="Harmon Lodge No. 420 — Square and Compasses"
+            width={160}
+            height={160}
+            className="mx-auto mb-6"
+            priority
+          />
           <h1 className="text-3xl md:text-5xl text-cream-100 mb-4">
             Harmon Lodge No. 420
           </h1>
