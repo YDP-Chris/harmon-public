@@ -169,9 +169,17 @@ export default async function Home() {
                 336-559-5989
               </a>
             </p>
+            <p>
+              <a
+                href="mailto:lodge@harmon420.org"
+                className="text-gold-400 hover:text-gold-300 transition-colors"
+              >
+                lodge@harmon420.org
+              </a>
+            </p>
           </div>
           <p className="text-cream-300 text-sm">
-            For general inquiries, contact the Secretary by phone.
+            For general inquiries, contact the Secretary by phone or email.
           </p>
         </div>
       </Section>
