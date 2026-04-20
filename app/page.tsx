@@ -1,65 +1,172 @@
-import Image from "next/image";
+import Section from "@/components/Section";
+import Link from "next/link";
+
+export const revalidate = 3600;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      {/* Hero */}
+      <div className="py-24 md:py-32 px-4 text-center border-b border-navy-700">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-gold-400 text-6xl mb-6" aria-hidden="true">
+            &#9651;
+          </div>
+          <h1 className="text-3xl md:text-5xl text-cream-100 mb-4">
+            Harmon Lodge No. 420
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl md:text-2xl text-gold-300 font-serif">
+            Ancient Free and Accepted Masons
+          </p>
+          <p className="text-cream-300 mt-3">Yadkinville, North Carolina</p>
+        </div>
+      </div>
+
+      {/* About */}
+      <Section id="about" title="About the Lodge">
+        <div className="space-y-4 text-cream-200 leading-relaxed">
+          <p>
+            Harmon Lodge No. 420 is a regular lodge of Free and Accepted Masons
+            under the Grand Lodge of Ancient, Free and Accepted Masons of North
+            Carolina. The lodge meets in Yadkinville and has served the brethren
+            of Yadkin County and the surrounding area for generations.
+          </p>
+          <p>
+            Freemasonry is a fraternity of men who share a commitment to
+            self-improvement, brotherly love, and service to others. It is not a
+            secret society, but a society with traditions it holds private. Its
+            members come from every walk of life and are united by a common
+            desire to become better men.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </Section>
+
+      {/* Meeting Info */}
+      <Section
+        id="meetings"
+        title="Stated Communication"
+        className="bg-navy-800"
+      >
+        <div className="space-y-6 text-cream-200">
+          <div className="text-center space-y-2">
+            <p className="text-xl text-cream-100">
+              Third Thursday of each month
+            </p>
+            <p>Dinner served at 6:30 PM</p>
+            <p>Lodge opens at 7:30 PM</p>
+          </div>
+          <div className="text-center pt-4 border-t border-navy-700">
+            <p className="text-cream-100">3229 Ray T. Moore Road</p>
+            <p>Yadkinville, NC 27055</p>
+          </div>
+          <p className="text-cream-300 text-sm text-center">
+            Brethren are encouraged to come early for the meal and the
+            fellowship that precedes our work on the floor.
+          </p>
         </div>
-      </main>
-    </div>
+      </Section>
+
+      {/* Calendar preview */}
+      <Section id="calendar-preview" title="Upcoming Events">
+        <p className="text-cream-300 mb-6">
+          Events and stated communications are posted to the lodge calendar.
+        </p>
+        <Link
+          href="/calendar"
+          className="text-gold-400 hover:text-gold-300 transition-colors"
+        >
+          View the full calendar &rarr;
+        </Link>
+      </Section>
+
+      {/* Education preview */}
+      <Section
+        id="education-preview"
+        title="Masonic Education"
+        className="bg-navy-800"
+      >
+        <p className="text-cream-300 mb-6">
+          Each week the lodge shares a piece of Masonic education drawn from
+          history, symbolism, and the traditions of the Craft.
+        </p>
+        <Link
+          href="/education"
+          className="text-gold-400 hover:text-gold-300 transition-colors"
+        >
+          Read recent posts &rarr;
+        </Link>
+      </Section>
+
+      {/* Officers */}
+      <Section id="officers" title="Officers">
+        <p className="text-cream-300 text-sm mb-6">2026 Masonic Year</p>
+        <div className="space-y-3 text-cream-200">
+          {[
+            ["Worshipful Master", "Matthew Douglas"],
+            ["Senior Warden", "Chris Ford"],
+            ["Junior Warden", "Shannon McClamrock"],
+            ["Treasurer", "Roy Douglas"],
+            ["Secretary", "Chris Ford"],
+            ["Senior Deacon", "Michael Payne"],
+            ["Junior Deacon", "Derwin Woodard"],
+            ["Chaplain", "Robert Whitaker"],
+            ["Tyler", "Steve Church"],
+          ].map(([title, name]) => (
+            <div key={title} className="flex justify-between border-b border-navy-700 pb-2">
+              <span className="text-cream-300">{title}</span>
+              <span>{name}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* How to Petition */}
+      <Section id="petition" title="How to Petition" className="bg-navy-800">
+        <div className="space-y-4 text-cream-200 leading-relaxed">
+          <p>
+            Freemasonry does not recruit. Membership is available to men of good
+            character who believe in a Supreme Being and who come of their own
+            free will and accord.
+          </p>
+          <p>
+            If you are interested in learning more about the Craft, the
+            traditional path is to speak with a Mason you know and trust. You
+            may also contact the Secretary of Harmon Lodge No. 420 at the number
+            below. A brother will be glad to answer your questions and, if
+            appropriate, provide you with a petition.
+          </p>
+          <p className="text-cream-300">
+            There is no obligation in asking, and no pressure to proceed.
+          </p>
+        </div>
+      </Section>
+
+      {/* Contact */}
+      <Section id="contact" title="Contact">
+        <div className="space-y-4 text-cream-200">
+          <div>
+            <p className="text-cream-100 font-serif">
+              Harmon Lodge No. 420, A.F. &amp; A.M.
+            </p>
+            <p>3229 Ray T. Moore Road</p>
+            <p>Yadkinville, NC 27055</p>
+          </div>
+          <div>
+            <p className="text-cream-300 text-sm">Secretary</p>
+            <p>
+              <a
+                href="tel:+13365595989"
+                className="text-gold-400 hover:text-gold-300 transition-colors"
+              >
+                336-559-5989
+              </a>
+            </p>
+          </div>
+          <p className="text-cream-300 text-sm">
+            For general inquiries, contact the Secretary by phone.
+          </p>
+        </div>
+      </Section>
+    </>
   );
 }
